@@ -9,7 +9,7 @@ These are items not automatically synced to the cloud.
 - Firefox add-on options
   - uBlock Origin
 - Installed fonts
-- Game mod files
+- Game & Mods
   - Muse Dash
   - Vortex
 - Double-check for any uncommitted projects
