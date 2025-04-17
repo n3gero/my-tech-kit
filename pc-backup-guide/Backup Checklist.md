@@ -11,5 +11,5 @@ These are items not automatically synced to the cloud.
 - Installed fonts
 - Game mod files
   - Muse Dash
-  - Nexus
+  - Vortex
 - Double-check for any uncommitted projects
