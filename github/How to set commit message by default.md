@@ -4,7 +4,7 @@
 
 ```sh
 New-Item -Path "./.git/COMMIT_TEMPLATE" -ItemType File -Force
-Set-Content -Path "./.git/COMMIT_TEMPLATE" -Value "*"
+Set-Content -Path "./.git/COMMIT_TEMPLATE" -Value "*" -Encoding utf8
 
 git config commit.template ./.git/COMMIT_TEMPLATE
 ```
