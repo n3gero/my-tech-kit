@@ -2,15 +2,10 @@
 
 **This approach is not suited for team development. You can do it for your personal private projects.**
 
-Create a template file at `./git/COMMIT_TEMPLATE` that looks like this:
-
-```txt:./git/COMMIT_TEMPLATE
-*
-```
-
-Run the following command:
-
 ```sh
+New-Item -Path "./.git/COMMIT_TEMPLATE" -ItemType File -Force
+Set-Content -Path "./.git/COMMIT_TEMPLATE" -Value "*"
+
 git config commit.template ./.git/COMMIT_TEMPLATE
 ```
 
