@@ -13,10 +13,10 @@ cargo install cargo-update
 
 ### [cargo-update](https://crates.io/crates/cargo-update)
 
-すべての依存関係を更新する。
+A cargo subcommand for checking and applying updates to installed executables
 
 ```sh
-cargo update
+cargo install-update -a
 ```
 
 ### [mdbook](https://crates.io/crates/mdbook)
