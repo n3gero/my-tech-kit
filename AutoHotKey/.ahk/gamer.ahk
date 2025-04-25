@@ -1,3 +1,7 @@
+#HotIf WinActive("VALORANT")
+
+!Enter::Return
+
 #HotIf WinActive("METAL GEAR SOLID V: THE PHANTOM PAIN")
 
 ;!Tab:: Send "{Tab}"

@@ -5,24 +5,24 @@
 Create a backup of your current registry before modifying it in the next step.
 
 ```ps1
-$backupFolderPath = Join-Path -Path $env:USERPROFILE -ChildPath "Documents\RegBackup"
-if (-not (Test-Path -Path $backupFolderPath)) {
-    New-Item -Path $backupFolderPath -ItemType Directory
-}
-
-$backupFilePath = Join-Path -Path $backupFolderPath -ChildPath "${env:USERNAME}-HKCU-$(Get-Date -Format 'yyyyMMddHHmmss').reg"
-reg export "HKCU" $backupFilePath
+Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$(Resolve-Path .\scripts\Backup-Registry-HKCU.ps1)`"" -Verb RunAs
 ```
 
-## Turn off Sticky, Filter, Toggle keys
+## Turn Off Accessibility Shortcuts
 
-`ms-settings:easeofaccess-keyboard`
+### Sticky, Filter, Toggle keys
+
+`ms-settings:easeofaccess-keyboard` >
 
 - Sticky keys: Off
 - Filter keys: Off
 - Toggle keys: Off
 
 ![alt text](img/turn-off-sticky.png)
+
+### Turn off Narrator
+
+`ms-settings:easeofaccess-narrator` > Keyboard shortcut for Narrator: Off
 
 ## Right Click Menu: Show More as Default (Classic Context Menu)
 
