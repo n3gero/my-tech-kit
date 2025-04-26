@@ -1,3 +1,5 @@
+#Requires AutoHotkey v2.0
+
 #HotIf WinActive("VALORANT")
 
 !Enter::Return
@@ -33,3 +35,7 @@ XButton1:: SendInput "{e}"
 ;#HotIf WinActive("Kingdom Come: Deliverance")
 
 #HotIf
+
+#+n:: Run "C:\Windows\notepad.exe"
+
+#+r:: Run "E:\Users\mrg0z\Git\my-tech-kit\AutoHotKey\target\release\input-random.exe", , "Hide"

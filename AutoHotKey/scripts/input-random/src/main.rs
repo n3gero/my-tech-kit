@@ -21,5 +21,3 @@ fn main() {
   let mut enigo = Enigo::new(&settings).unwrap();
   enigo.text(&password).unwrap();
 }
-
-//
