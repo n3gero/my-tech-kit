@@ -8,6 +8,7 @@
     and attempts to set its priority to "High" once detected.
 #>
 
+
 Start-Process -FilePath "C:\Riot Games\Riot Client\RiotClientServices.exe" -ArgumentList "--launch-product=valorant --launch-patchline=live"
 
 Write-Output "Launching VALORANT via Riot Client..."
@@ -21,6 +22,8 @@ for ($i = 0; $i -lt 300; $i++) {
     break
   }
 }
+
+DisplaySwitch 1
 
 if ($process) {
   try {
