@@ -38,4 +38,4 @@ XButton1:: SendInput "{e}"
 
 #+n:: Run "C:\Windows\notepad.exe"
 
-#+r:: Run "E:\Users\mrg0z\Git\my-tech-kit\AutoHotKey\target\release\input-random.exe", , "Hide"
+#+r:: Run A_ScriptDir "\..\target\release\input-random.exe", , "Hide"
