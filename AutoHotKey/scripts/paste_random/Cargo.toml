@@ -1,5 +1,5 @@
 [package]
-name = "paste-random"
+name = "input-random"
 version = "0.1.0"
 edition = "2024"
 

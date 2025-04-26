@@ -19,6 +19,7 @@ fn main() {
 
   let settings = Settings::default();
   let mut enigo = Enigo::new(&settings).unwrap();
-
-  enigo.text(&password).unwrap(); // ← ここ！！
+  enigo.text(&password).unwrap();
 }
+
+//
