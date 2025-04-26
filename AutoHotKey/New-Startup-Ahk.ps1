@@ -11,18 +11,18 @@ function Invoke-RustBuilds {
     
     foreach ($project in $scriptsProjects) {
         $name = Split-Path -Leaf $project
-        Write-Host "Building project: $name"
+        Write-Host "Building $name"
         cargo build --release --manifest-path "$project\Cargo.toml"
     
         $exePath = "$workRoot\target\release\$name.exe"
         if (Test-Path $exePath) {
-            Write-Host "Built: $exePath"
+            Write-Host "Built $exePath"
         } else {
             Write-Warning "Build succeeded but $exePath not found"
         }
     }
 
-    Write-Host "All projects built!"
+    Write-Host "All Rust projects built!"
 }
 
 function New-StartupAhk {
