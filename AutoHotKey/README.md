@@ -28,4 +28,4 @@ Adjust the `helpPath` and `interpreterPath` based on your system.
 
 ## Automatically Build AHK on Startup
 
-Use `New-Startup-Ahk.ps1` PowerShell script to automate AHK-related tasks on startup.
+Use `./New-Startup-Ahk.ps1` PowerShell script to automate AHK-related tasks on startup.
