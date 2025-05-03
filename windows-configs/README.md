@@ -1,5 +1,13 @@
 # Windows Configulations
 
+This document is an initial setup guide I use to make Windows more comfortable and efficient for my personal use.
+
+## Create a System Restore Point
+
+Create a System Restore Point to back up your current system state.
+
+`Win + R` > `SystemPropertiesProtection` > Create >  type `Before Windows Configurations` (optional descryption)> Create
+
 ## Backup Current Registry
 
 Create a backup of your current registry before modifying it in the next step.
@@ -12,7 +20,7 @@ Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File
 
 ### Sticky, Filter, Toggle keys
 
-`ms-settings:easeofaccess-keyboard` >
+`Win + R` > `ms-settings:easeofaccess-keyboard` >
 
 - Sticky keys: Off
 - Filter keys: Off
@@ -22,7 +30,7 @@ Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File
 
 ### Turn off Narrator
 
-`ms-settings:easeofaccess-narrator` > Keyboard shortcut for Narrator: Off
+`Win + R` > `ms-settings:easeofaccess-narrator` > Keyboard shortcut for Narrator: Off
 
 ## Right Click Menu: Show More as Default (Classic Context Menu)
 
@@ -32,11 +40,11 @@ reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\
 
 ## Time Format
 
-`ms-settings:regionformatting` > Language & region > Regional format > Change fomats
+`Win + R` > `ms-settings:regionformatting` > Language & region > Regional format > Change fomats
 
 ## Graphics
 
-`ms-settings:display-advancedgraphics`
+`Win + R` > `ms-settings:display-advancedgraphics`
 
 ### Turn Off Hardware-accelerated GPU
 
