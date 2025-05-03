@@ -9,7 +9,7 @@ if (!(Test-Path $ps1Path)) {
 }
 
 # ファイル名からタスク名を取得
-$taskName = [System.IO.Path]::GetFileNameWithoutExtension($ps1Path)
+$taskName = [System.IO.Path]::GetFileName($ps1Path)
 
 # タスクアクション（PowerShellでスクリプト実行）
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$ps1Path`""
