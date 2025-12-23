@@ -1,55 +1,55 @@
-﻿# shell:startup
+﻿#Requires -Version 5.1
 
+# Root folder of this script
 $workRoot = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
-$ahkFolder = "$workRoot\.ahk"
-$scriptsFolder = "$workRoot\scripts"
+$ahkFolder = Join-Path $workRoot ".ahk"
 
-function Invoke-RustBuilds {
-    $scriptsProjects = Get-ChildItem -Path $scriptsFolder -Recurse -Filter Cargo.toml | ForEach-Object {
-        Split-Path -Parent $_.FullName
-    }
-    
-    foreach ($project in $scriptsProjects) {
-        $name = Split-Path -Leaf $project
-        Write-Host "Building $name"
-        cargo build --release --manifest-path "$project\Cargo.toml"
-    
-        $exePath = "$workRoot\target\release\$name.exe"
-        if (Test-Path $exePath) {
-            Write-Host "Built $exePath"
-        } else {
-            Write-Warning "Build succeeded but $exePath not found"
-        }
+# Path to AutoHotkey v2 executable
+# !!! Change this if your path is different !!!
+$ahkExe = "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"
+
+function New-LoginAhkTask {
+    param(
+        [string]$TaskName,
+        [string]$ScriptPath
+    )
+
+    # Remove existing task with the same name
+    $existing = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
+    if ($existing) {
+        Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
+        Write-Output "Removed existing task: $TaskName"
     }
 
-    Write-Host "All Rust projects built!"
+    # Create new scheduled task that runs at logon with highest privileges
+    $action = New-ScheduledTaskAction -Execute $ahkExe -Argument "`"$ScriptPath`""
+    $trigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
+    $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -RunLevel Highest -LogonType Interactive
+    $task = New-ScheduledTask -Action $action -Trigger $trigger -Principal $principal
+
+    Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
+    Write-Output "Created task: $TaskName  ->  $ScriptPath"
 }
 
-function New-StartupAhk {
-    param ([string]$targetPath, [string]$shortcutPath)
-
-    $WScriptShell = New-Object -ComObject WScript.Shell
-    $shortcut = $WScriptShell.CreateShortcut($shortcutPath)
-    $shortcut.TargetPath = $targetPath
-    $shortcut.Save()
-}
-
-function Update-StartupShortcuts {
-    $startupFolder = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Startup"))
-
-    Get-ChildItem -Path $startupFolder -Filter "*.ahk.lnk" | ForEach-Object {
-        Remove-Item -Path $_.FullName -Force
+function Update-AhkScheduledTasks {
+    if (-not (Test-Path $ahkFolder)) {
+        Write-Error "AHK folder not found: $ahkFolder"
+        return
     }
-    Write-Output "Deleted existing shortcuts"
 
+    # Remove old tasks with prefix AHK_ for this user
+    Get-ScheduledTask -ErrorAction SilentlyContinue |
+    Where-Object { $_.TaskName -like "AHK_*" -and $_.Principal.UserId -eq $env:USERNAME } |
+    Unregister-ScheduledTask -Confirm:$false
+
+    Write-Output "Deleted old AHK_ tasks for user $env:USERNAME"
+
+    # Create tasks for each .ahk file
     Get-ChildItem -Path $ahkFolder -Filter "*.ahk" | ForEach-Object {
-        $ahkFile = $_.FullName
-        $shortcutPath = [System.IO.Path]::Combine($startupFolder, "$($_.BaseName).ahk.lnk")
-
-        New-StartupAhk -targetPath $ahkFile -shortcutPath $shortcutPath
-        Write-Output "Created shortcut for $($_.Name) in Startup folder"
+        $taskName = "AHK_$($_.BaseName)"
+        $scriptPath = $_.FullName
+        New-LoginAhkTask -TaskName $taskName -ScriptPath $scriptPath
     }
 }
 
-Invoke-RustBuilds
-Update-StartupShortcuts
+Update-AhkScheduledTasks
