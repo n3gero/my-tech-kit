@@ -16,4 +16,5 @@ winget install Volta.Volta
 
 ```sh
 volta install node
+volta install pnpm
 ```
